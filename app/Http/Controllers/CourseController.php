@@ -49,10 +49,19 @@ class CourseController extends Controller
     // {
     //     //
     // }
-    public function show($id)
+    public function show($slug)
     {
-        $course = Course::with(['Platform', 'topics', 'series'])->findOrFail($id);
-        return $course;
+        $course = Course::where('slug', $slug)->with(['Platform', 'topics', 'series'])->first();
+
+        // return response()->json($course);
+
+        if( empty($course) ) {
+            return abort(404);
+        }
+
+        return view('course.single',[
+            'course' => $course,
+        ]);
     }
 
     /**

@@ -12,9 +12,13 @@ class TopicController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($slug)
     {
-        //
+        $topic = Topic::where('slug', $slug)->with('courses')->first();
+        // return $topic;
+        return view('topic.index', [
+            'topic' => $topic,
+        ]);
     }
 
     /**
