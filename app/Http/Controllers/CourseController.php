@@ -13,9 +13,33 @@ class CourseController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        // $search = $request->search;
+        // $level = $request->level;
+        // $courses = Course::where(function ($query) use ($search) {
+        //     if(!empty($search)) {
+        //         $query->where('name', 'like', '%' . $search . '%');
+        //     }
+        // })->when($level, function ($query) use ($level) {
+        //     if($level == 'beginner') {
+        //         $field = 0;
+        //     } elseif($level == 'intermediate') {
+        //         $field = 1;
+        //     } else {
+        //         $field = 2;
+        //     }
+
+        //     $query->where('difficulty_level', $field);
+        // })->paginate(12);
+
+        $courses = Course::with(['platform', 'topics', 'series', 'authors', 'reviews'])->paginate(4);
+
+        // return response()->json($courses);
+
+        return view('course.index', [
+            'courses' => $courses
+        ]);
     }
 
     /**
@@ -51,7 +75,7 @@ class CourseController extends Controller
     // }
     public function show($slug)
     {
-        $course = Course::where('slug', $slug)->with(['Platform', 'topics', 'series'])->first();
+        $course = Course::where('slug', $slug)->with(['platform', 'topics', 'series', 'authors', 'reviews'])->first();
 
         // return response()->json($course);
 

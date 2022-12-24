@@ -12,9 +12,21 @@ class SeriesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($slug)
     {
-        //
+        $series = Series::where('slug', $slug)->with('courses')->first();
+        $courses = $series->courses()->latest()->paginate(12);
+
+        // return $series;
+
+        if( empty($series) ) {
+            return abort(404);
+        }
+
+        return view('series.index', [
+            'series' => $series,
+            'courses' => $courses,
+        ]);
     }
 
     /**

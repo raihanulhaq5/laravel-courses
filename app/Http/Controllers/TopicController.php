@@ -15,9 +15,16 @@ class TopicController extends Controller
     public function index($slug)
     {
         $topic = Topic::where('slug', $slug)->with('courses')->first();
+        $courses = $topic->courses()->latest()->paginate(12);
         // return $topic;
+
+        if( empty($topic) ) {
+            return abort(404);
+        }
+
         return view('topic.index', [
             'topic' => $topic,
+            'courses' => $courses,
         ]);
     }
 

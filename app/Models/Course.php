@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 class Course extends Model
 {
@@ -28,6 +29,12 @@ class Course extends Model
     public function series() {
         return $this->belongsToMany(Series::class, 'course_series', 'course_id', 'series_id');
     }
+
+    public function reviews() {
+        return $this->hasMany(Review::class);
+    }
+
+
 
     public function duration($value) {
         if($value == 1){

@@ -51,38 +51,36 @@
                     </div>
                     <div class="flex items-center gap-3 mt-5">
                         <div class="flex items-center space-x-px">
-                            <svg class="w-4 h-4 text-gray-300" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
-                                fill="currentColor">
-                                <path fill-rule="evenodd"
-                                    d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401z"
-                                    clip-rule="evenodd"></path>
-                            </svg>
-                            <svg class="w-4 h-4 text-gray-300" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
-                                fill="currentColor">
-                                <path fill-rule="evenodd"
-                                    d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401z"
-                                    clip-rule="evenodd"></path>
-                            </svg>
-                            <svg class="w-4 h-4 text-gray-300" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
-                                fill="currentColor">
-                                <path fill-rule="evenodd"
-                                    d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401z"
-                                    clip-rule="evenodd"></path>
-                            </svg>
-                            <svg class="w-4 h-4 text-gray-300" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
-                                fill="currentColor">
-                                <path fill-rule="evenodd"
-                                    d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401z"
-                                    clip-rule="evenodd"></path>
-                            </svg>
-                            <svg class="w-4 h-4 text-gray-300" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
-                                fill="currentColor">
-                                <path fill-rule="evenodd"
-                                    d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401z"
-                                    clip-rule="evenodd"></path>
-                            </svg>
+                            @php
+                                $totalStar = 0;
+                                foreach ($course->reviews as $review) {
+                                    $totalStar += $review->star;
+                                }
+                                $averageStar = $totalStar > 0 ? round($totalStar / count($course->reviews)) : 0;
+                            @endphp
+
+                            @for ($i = 1; $i <= 5; $i++)
+                                @if ($i <= $averageStar)
+                                    <svg class="w-4 h-4 text-yellow-400" xmlns="http://www.w3.org/2000/svg"
+                                        viewBox="0 0 20 20" fill="currentColor">
+                                        <path fill-rule="evenodd"
+                                            d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401z"
+                                            clip-rule="evenodd"></path>
+                                    </svg>
+                                @else
+                                    <svg class="w-4 h-4 text-gray-300" xmlns="http://www.w3.org/2000/svg"
+                                        viewBox="0 0 20 20" fill="currentColor">
+                                        <path fill-rule="evenodd"
+                                            d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401z"
+                                            clip-rule="evenodd"></path>
+                                    </svg>
+                                @endif
+                            @endfor
+
                         </div>
-                        <a href="#reviews" class="text-sm text-gray-500"> 0 Reviews </a>
+                        <a href="#reviews" class="text-sm text-gray-500"> {{ count($course->reviews) }}
+                            Review{{ count($course->reviews) > 1 ? 's' : '' }} </a>
+
                     </div>
                     <ul class="flex flex-wrap items-center gap-4 mt-5 text-gray-700">
                         <li class="flex items-center gap-2">
@@ -122,8 +120,66 @@
                         </div>
                     </div>
 
-                    <h2 class="mt-4 pt-4 text-lg font-bold text-gray-900">Reviews</h2>
-                    <p class="mt-2 bg-white rounded-sm shadow p-6">No review yet.</p>
+                    <h2 class="mt-4 pt-4 text-lg font-bold text-gray-900">Reviews ({{ count($course->reviews) }})</h2>
+                    @if (count($course->reviews) > 0)
+                        <ul class="space-y-6 mt-4">
+                            @foreach ($course->reviews as $review)
+                                <li class="bg-white rounded-sm shadow">
+                                    <div class="px-6 py-5">
+                                        <div class="sm:flex sm:items-center sm:justify-between">
+                                            <div class="flex items-center">
+                                                <div class="flex items-center space-x-px">
+                                                    <div class="flex items-center space-x-px">
+
+                                                        @for ($i = 1; $i <= 5; $i++)
+                                                            @if ($i <= $review->star)
+                                                                <svg class="w-4 h-4 text-yellow-400"
+                                                                    xmlns="http://www.w3.org/2000/svg"
+                                                                    viewBox="0 0 20 20" fill="currentColor">
+                                                                    <path fill-rule="evenodd"
+                                                                        d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401z"
+                                                                        clip-rule="evenodd"></path>
+                                                                </svg>
+                                                            @else
+                                                                <svg class="w-4 h-4 text-gray-300"
+                                                                    xmlns="http://www.w3.org/2000/svg"
+                                                                    viewBox="0 0 20 20" fill="currentColor">
+                                                                    <path fill-rule="evenodd"
+                                                                        d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401z"
+                                                                        clip-rule="evenodd"></path>
+                                                                </svg>
+                                                            @endif
+                                                        @endfor
+
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <p class="text-sm mt-2.5 sm:mt-0 font-normal text-gray-400">
+                                                {{ date('M d, Y', strtotime($review->review_date)) }}
+                                            </p>
+                                        </div>
+
+                                        <blockquote class="mt-4 sm:mt-6">
+                                            <p class="text-base font-normal leading-7 text-gray-600">
+                                                {{ $review->comment }}</p>
+                                        </blockquote>
+
+                                        <div class="flex items-center mt-5 sm:mt-8">
+                                            <img class="flex-shrink-0 w-6 h-6 bg-gray-300 rounded-full"
+                                                src="https://www.gravatar.com/avatar/f7bd4d2a91e6298ca47bff3a96121906.jpg?s=80&amp;d=blank&amp;r=g"
+                                                alt="Alex Table Profile Photo">
+                                            <span class="ml-2.5 text-sm font-medium text-gray-900">
+                                                {{ $review->user->name }} </span>
+                                        </div>
+                                    </div>
+                                </li>
+                            @endforeach
+                        </ul>
+                    @else
+                        <p class="mt-2 bg-white rounded-sm shadow p-6">No review yet.</p>
+                    @endif
+
                 </div>
 
 
@@ -155,116 +211,65 @@
                         <div class="space-y-4 p-6">
                             <h3 class="text-sm font-bold tracking-widest text-gray-900 uppercase">Authors</h3>
                             <hr class="mt-5 mb-5 border-gray-200">
-                            <div class="space-y-4 pb-2">
-                                <div class="aspect-w-3 aspect-h-2">
-                                    <img class="object-cover w-48 m-auto shadow"
-                                        src="https://laravel-courses.com/storage/thumbnails/default/9d/ke/1lin0xkwk00s888k8wc48.png?p=authors%2F04ff15e2-69b1-4110-a7a8-0ec15616abaf.png&amp;s=pd&amp;widen=200"
-                                        alt="Freek Van der Herten Profile Picture">
+                            @foreach ($course->authors as $author)
+                                <div class="space-y-4 pb-2">
+                                    <div class="aspect-w-3 aspect-h-2">
+                                        <img class="object-cover w-48 m-auto shadow" src="{{ $author->image }}"
+                                            alt="Freek Van der Herten Profile Picture">
+                                    </div>
+                                    <div class="space-y-1 text-lg font-medium leading-6 text-center">
+                                        <h4 class="font-semibold">{{ $author->name }}</h4>
+                                    </div>
+                                    <ul role="list" class="flex space-x-5 justify-center">
+                                        @if (!empty($author->twitter_url))
+                                            <li>
+                                                <a href="{{ $author->twitter_url }}"
+                                                    class="text-gray-400 hover:text-gray-500" target="_blank">
+                                                    <span class="sr-only">Twitter</span>
+                                                    <svg class="h-6 w-6" fill="currentColor"
+                                                        xmlns="http://www.w3.org/2000/svg">
+                                                        <path
+                                                            d="M19.633 7.997c.013.175.013.349.013.523 0 5.325-4.053 11.461-11.46 11.461-2.282 0-4.402-.661-6.186-1.809.324.037.636.05.973.05a8.07 8.07 0 0 0 5.001-1.721 4.036 4.036 0 0 1-3.767-2.793c.249.037.499.062.761.062.361 0 .724-.05 1.061-.137a4.027 4.027 0 0 1-3.23-3.953v-.05c.537.299 1.16.486 1.82.511a4.022 4.022 0 0 1-1.796-3.354c0-.748.199-1.434.548-2.032a11.457 11.457 0 0 0 8.306 4.215c-.062-.3-.1-.611-.1-.923a4.026 4.026 0 0 1 4.028-4.028c1.16 0 2.207.486 2.943 1.272a7.957 7.957 0 0 0 2.556-.973 4.02 4.02 0 0 1-1.771 2.22 8.073 8.073 0 0 0 2.319-.624 8.645 8.645 0 0 1-2.019 2.083z">
+                                                        </path>
+                                                    </svg>
+                                                </a>
+                                            </li>
+                                        @endif
+                                        @if (!empty($author->github_url))
+                                            <li>
+                                                <a href="{{ $author->github_url }}"
+                                                    class="text-gray-400 hover:text-gray-500" target="_blank">
+                                                    <span class="sr-only">GitHub</span>
+                                                    <svg class="w-6 h-6" fill="currentColor"
+                                                        xmlns="http://www.w3.org/2000/svg">
+                                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                                            d="M12.026 2c-5.509 0-9.974 4.465-9.974 9.974 0 4.406 2.857 8.145 6.821 9.465.499.09.679-.217.679-.481 0-.237-.008-.865-.011-1.696-2.775.602-3.361-1.338-3.361-1.338-.452-1.152-1.107-1.459-1.107-1.459-.905-.619.069-.605.069-.605 1.002.07 1.527 1.028 1.527 1.028.89 1.524 2.336 1.084 2.902.829.091-.645.351-1.085.635-1.334-2.214-.251-4.542-1.107-4.542-4.93 0-1.087.389-1.979 1.024-2.675-.101-.253-.446-1.268.099-2.64 0 0 .837-.269 2.742 1.021a9.582 9.582 0 0 1 2.496-.336 9.554 9.554 0 0 1 2.496.336c1.906-1.291 2.742-1.021 2.742-1.021.545 1.372.203 2.387.099 2.64.64.696 1.024 1.587 1.024 2.675 0 3.833-2.33 4.675-4.552 4.922.355.308.675.916.675 1.846 0 1.334-.012 2.41-.012 2.737 0 .267.178.577.687.479C19.146 20.115 22 16.379 22 11.974 22 6.465 17.535 2 12.026 2z">
+                                                        </path>
+                                                    </svg>
+                                                </a>
+                                            </li>
+                                        @endif
+                                        @if (!empty($author->website_url))
+                                            <li>
+                                                <a href="{{ $author->website_url }}"
+                                                    class="text-gray-400 hover:text-gray-500" target="_blank">
+                                                    <span class="sr-only">Website</span>
+                                                    <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24"
+                                                        stroke-width="1.5" stroke="currentColor"
+                                                        xmlns="http://www.w3.org/2000/svg">
+                                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                                            d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0121 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0112 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 013 12c0-1.605.42-3.113 1.157-4.418">
+                                                        </path>
+                                                    </svg>
+                                                </a>
+                                            </li>
+                                        @endif
+                                    </ul>
+                                    <div class="text-sm px-7">
+                                        <p class="text-gray-500">{{ $author->description }}</p>
+                                    </div>
                                 </div>
-                                <div class="space-y-1 text-lg font-medium leading-6 text-center">
-                                    <h4 class="font-semibold">Freek Van der Herten</h4>
-                                </div>
-                                <ul role="list" class="flex space-x-5 justify-center">
-                                    <li>
-                                        <a href="#" class="text-gray-400 hover:text-gray-500" target="_blank">
-                                            <span class="sr-only">Twitter</span>
-                                            <svg class="h-6 w-6" fill="currentColor"
-                                                xmlns="http://www.w3.org/2000/svg">
-                                                <path
-                                                    d="M19.633 7.997c.013.175.013.349.013.523 0 5.325-4.053 11.461-11.46 11.461-2.282 0-4.402-.661-6.186-1.809.324.037.636.05.973.05a8.07 8.07 0 0 0 5.001-1.721 4.036 4.036 0 0 1-3.767-2.793c.249.037.499.062.761.062.361 0 .724-.05 1.061-.137a4.027 4.027 0 0 1-3.23-3.953v-.05c.537.299 1.16.486 1.82.511a4.022 4.022 0 0 1-1.796-3.354c0-.748.199-1.434.548-2.032a11.457 11.457 0 0 0 8.306 4.215c-.062-.3-.1-.611-.1-.923a4.026 4.026 0 0 1 4.028-4.028c1.16 0 2.207.486 2.943 1.272a7.957 7.957 0 0 0 2.556-.973 4.02 4.02 0 0 1-1.771 2.22 8.073 8.073 0 0 0 2.319-.624 8.645 8.645 0 0 1-2.019 2.083z">
-                                                </path>
-                                            </svg>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="https://github.com/freekmurze"
-                                            class="text-gray-400 hover:text-gray-500" target="_blank">
-                                            <span class="sr-only">GitHub</span>
-                                            <svg class="w-6 h-6" fill="currentColor"
-                                                xmlns="http://www.w3.org/2000/svg">
-                                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                                    d="M12.026 2c-5.509 0-9.974 4.465-9.974 9.974 0 4.406 2.857 8.145 6.821 9.465.499.09.679-.217.679-.481 0-.237-.008-.865-.011-1.696-2.775.602-3.361-1.338-3.361-1.338-.452-1.152-1.107-1.459-1.107-1.459-.905-.619.069-.605.069-.605 1.002.07 1.527 1.028 1.527 1.028.89 1.524 2.336 1.084 2.902.829.091-.645.351-1.085.635-1.334-2.214-.251-4.542-1.107-4.542-4.93 0-1.087.389-1.979 1.024-2.675-.101-.253-.446-1.268.099-2.64 0 0 .837-.269 2.742 1.021a9.582 9.582 0 0 1 2.496-.336 9.554 9.554 0 0 1 2.496.336c1.906-1.291 2.742-1.021 2.742-1.021.545 1.372.203 2.387.099 2.64.64.696 1.024 1.587 1.024 2.675 0 3.833-2.33 4.675-4.552 4.922.355.308.675.916.675 1.846 0 1.334-.012 2.41-.012 2.737 0 .267.178.577.687.479C19.146 20.115 22 16.379 22 11.974 22 6.465 17.535 2 12.026 2z">
-                                                </path>
-                                            </svg>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="https://freek.dev/" class="text-gray-400 hover:text-gray-500"
-                                            target="_blank">
-                                            <span class="sr-only">Website</span>
-                                            <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24"
-                                                stroke-width="1.5" stroke="currentColor"
-                                                xmlns="http://www.w3.org/2000/svg">
-                                                <path stroke-linecap="round" stroke-linejoin="round"
-                                                    d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0121 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0112 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 013 12c0-1.605.42-3.113 1.157-4.418">
-                                                </path>
-                                            </svg>
-                                        </a>
-                                    </li>
-                                </ul>
-                                <div class="text-sm px-7">
-                                    <p class="text-gray-500">I'm a PHP developer and Laravel enthusiast. Most of my
-                                        time
-                                        is spent at Spatie of which I'm the co-owner. Whenever my colleagues and I
-                                        stumble upon a problem that we can solve in a clean way, we extract our solution
-                                        so other developers can use it. Together with my colleagues I regularly release
-                                        packages that have been downloaded more than 500 million times.</p>
-                                </div>
-                            </div>
-                            <div class="space-y-4 pb-2">
-                                <div class="aspect-w-3 aspect-h-2">
-                                    <img class="object-cover w-48 m-auto shadow"
-                                        src="https://laravel-courses.com/storage/thumbnails/default/bl/z8/n4ls908ck0c4s4g8ck48o.png?p=authors%2F5eb9fd04-7c8d-4f04-8946-b09ad0a8750a.png&amp;s=pd&amp;widen=200"
-                                        alt="Brent Roose Profile Picture">
-                                </div>
-                                <div class="space-y-1 text-lg font-medium leading-6 text-center">
-                                    <h4 class="font-semibold">Brent Roose</h4>
-                                </div>
-                                <ul role="list" class="flex space-x-5 justify-center">
-                                    <li>
-                                        <a href="#" class="text-gray-400 hover:text-gray-500" target="_blank">
-                                            <span class="sr-only">Twitter</span>
-                                            <svg class="h-6 w-6" fill="currentColor"
-                                                xmlns="http://www.w3.org/2000/svg">
-                                                <path
-                                                    d="M19.633 7.997c.013.175.013.349.013.523 0 5.325-4.053 11.461-11.46 11.461-2.282 0-4.402-.661-6.186-1.809.324.037.636.05.973.05a8.07 8.07 0 0 0 5.001-1.721 4.036 4.036 0 0 1-3.767-2.793c.249.037.499.062.761.062.361 0 .724-.05 1.061-.137a4.027 4.027 0 0 1-3.23-3.953v-.05c.537.299 1.16.486 1.82.511a4.022 4.022 0 0 1-1.796-3.354c0-.748.199-1.434.548-2.032a11.457 11.457 0 0 0 8.306 4.215c-.062-.3-.1-.611-.1-.923a4.026 4.026 0 0 1 4.028-4.028c1.16 0 2.207.486 2.943 1.272a7.957 7.957 0 0 0 2.556-.973 4.02 4.02 0 0 1-1.771 2.22 8.073 8.073 0 0 0 2.319-.624 8.645 8.645 0 0 1-2.019 2.083z">
-                                                </path>
-                                            </svg>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="https://github.com/brendt" class="text-gray-400 hover:text-gray-500"
-                                            target="_blank">
-                                            <span class="sr-only">GitHub</span>
-                                            <svg class="w-6 h-6" fill="currentColor"
-                                                xmlns="http://www.w3.org/2000/svg">
-                                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                                    d="M12.026 2c-5.509 0-9.974 4.465-9.974 9.974 0 4.406 2.857 8.145 6.821 9.465.499.09.679-.217.679-.481 0-.237-.008-.865-.011-1.696-2.775.602-3.361-1.338-3.361-1.338-.452-1.152-1.107-1.459-1.107-1.459-.905-.619.069-.605.069-.605 1.002.07 1.527 1.028 1.527 1.028.89 1.524 2.336 1.084 2.902.829.091-.645.351-1.085.635-1.334-2.214-.251-4.542-1.107-4.542-4.93 0-1.087.389-1.979 1.024-2.675-.101-.253-.446-1.268.099-2.64 0 0 .837-.269 2.742 1.021a9.582 9.582 0 0 1 2.496-.336 9.554 9.554 0 0 1 2.496.336c1.906-1.291 2.742-1.021 2.742-1.021.545 1.372.203 2.387.099 2.64.64.696 1.024 1.587 1.024 2.675 0 3.833-2.33 4.675-4.552 4.922.355.308.675.916.675 1.846 0 1.334-.012 2.41-.012 2.737 0 .267.178.577.687.479C19.146 20.115 22 16.379 22 11.974 22 6.465 17.535 2 12.026 2z">
-                                                </path>
-                                            </svg>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="https://stitcher.io/" class="text-gray-400 hover:text-gray-500"
-                                            target="_blank">
-                                            <span class="sr-only">Website</span>
-                                            <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24"
-                                                stroke-width="1.5" stroke="currentColor"
-                                                xmlns="http://www.w3.org/2000/svg">
-                                                <path stroke-linecap="round" stroke-linejoin="round"
-                                                    d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0121 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0112 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 013 12c0-1.605.42-3.113 1.157-4.418">
-                                                </path>
-                                            </svg>
-                                        </a>
-                                    </li>
-                                </ul>
-                                <div class="text-sm px-7">
-                                    <p class="text-gray-500">I am currently working as Dev Advocate for PhpStorm. I
-                                        have
-                                        been working almost exclusively on large web applications for the past few
-                                        years. Besides my work, I am also very active in the PHP community.</p>
-                                </div>
-                            </div>
+                            @endforeach
                         </div>
                     </div>
                     <div class="overflow-hidden bg-white border border-gray-200 rounded-sm mt-6 shadow-sm">
@@ -273,13 +278,32 @@
                             <hr class="mt-5 border-gray-200">
                             <div class="mt-8 flex flex-wrap gap-2.5">
                                 @foreach ($course->topics as $topic)
-                                    <a href="{{ route('topics', $topic->slug) }}"
+                                    <a href="{{ route('archive', ['topic', $topic->slug]) }}"
                                         class="relative inline-flex items-center rounded-full border border-gray-300 px-3 py-1.5 hover:bg-gray-100">
                                         <div class="absolute flex flex-shrink-0 items-center justify-center">
                                             <span class="h-1.5 w-1.5 rounded-full bg-rose-500"
                                                 aria-hidden="true"></span>
                                         </div>
                                         <div class="ml-3.5 text-sm font-medium text-gray-900">{{ $topic->name }}
+                                        </div>
+                                    </a>
+                                @endforeach
+                            </div>
+                        </div>
+                    </div>
+                    <div class="overflow-hidden bg-white border border-gray-200 rounded-sm mt-6 shadow-sm">
+                        <div class="px-4 py-5 sm:p-6">
+                            <h3 class="text-sm font-bold tracking-widest text-gray-900 uppercase">Series</h3>
+                            <hr class="mt-5 border-gray-200">
+                            <div class="mt-8 flex flex-wrap gap-2.5">
+                                @foreach ($course->series as $series)
+                                    <a href="{{ route('archive', ['series', $series->slug]) }}"
+                                        class="relative inline-flex items-center rounded-full border border-gray-300 px-3 py-1.5 hover:bg-gray-100">
+                                        <div class="absolute flex flex-shrink-0 items-center justify-center">
+                                            <span class="h-1.5 w-1.5 rounded-full bg-rose-500"
+                                                aria-hidden="true"></span>
+                                        </div>
+                                        <div class="ml-3.5 text-sm font-medium text-gray-900">{{ $series->name }}
                                         </div>
                                     </a>
                                 @endforeach
