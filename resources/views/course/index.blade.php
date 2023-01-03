@@ -25,7 +25,7 @@
                 <h2 id="courses-heading" class="sr-only">Courses</h2>
                 <div class="flex gap-x-8 gap-y-10">
                     <!-- Filters -->
-                    <form class="w-3/12 block bg-white p-4 px-6 shadow rounded-sm" method="GET">
+                    <form id="filter-Courses" class="w-3/12 block bg-white p-4 px-6 shadow rounded-sm" method="GET">
                         <h3 class="sr-only">Filters</h3>
                         <div class="border-b border-gray-200 py-6">
                             <h3 class="-my-3 flow-root">
@@ -64,7 +64,9 @@
                                                     clip-rule="evenodd"></path>
                                             </svg>
                                         </div>
-                                        <input type="text"
+                                        <input name="search"
+                                            value="{{ array_key_exists('search', $_GET) ? $_GET['search'] : '' }}"
+                                            type="text"
                                             class="block w-full rounded border border-gray-300 bg-white py-2 pl-10 pr-3 leading-5 placeholder-gray-500 focus:border-indigo-500 focus:placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-indigo-500 sm:text-sm"
                                             placeholder="Enter keywords">
                                     </div>
@@ -103,22 +105,28 @@
                             <div class="pt-6">
                                 <div class="space-y-2">
                                     <div class="flex items-center">
-                                        <input id="filter-level-beginner" value="beginner" type="checkbox"
-                                            class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
+                                        <input id="filter-level-beginner" name="level[]" value="beginner"
+                                            {{ array_key_exists('level', $_GET) && in_array('beginner', $_GET['level']) ? 'checked' : '' }}
+                                            type="checkbox" onChange="this.form.submit()"
+                                            class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500 form-submit">
                                         <label for="filter-level-beginner" class="ml-3 text-sm text-gray-600"> Beginner
                                             <span class="text-xs text-gray-500">(10)</span>
                                         </label>
                                     </div>
                                     <div class="flex items-center">
-                                        <input id="filter-level-intermediate" value="intermediate" type="checkbox"
-                                            class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
+                                        <input id="filter-level-intermediate" name="level[]" value="intermediate"
+                                            {{ array_key_exists('level', $_GET) && in_array('intermediate', $_GET['level']) ? 'checked' : '' }}
+                                            type="checkbox" onChange="this.form.submit()"
+                                            class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500 form-submit">
                                         <label for="filter-level-intermediate" class="ml-3 text-sm text-gray-600">
                                             Intermediate <span class="text-xs text-gray-500">(11)</span>
                                         </label>
                                     </div>
                                     <div class="flex items-center">
-                                        <input id="filter-level-advanced" value="advanced" type="checkbox"
-                                            class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
+                                        <input id="filter-level-advanced" name="level[]" value="advanced"
+                                            {{ array_key_exists('level', $_GET) && in_array('advanced', $_GET['level']) ? 'checked' : '' }}
+                                            type="checkbox" onChange="this.form.submit()"
+                                            class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500 form-submit">
                                         <label for="filter-level-advanced" class="ml-3 text-sm text-gray-600">
                                             Advanced <span class="text-xs text-gray-500">(2)</span>
                                         </label>
@@ -361,7 +369,7 @@
                         </div>
                     </form>
                     <div class="w-9/12">
-                        <ul role="list" class="space-y-6 mb-6">
+                        <ul role="list" class="space-y-6">
                             @foreach ($courses as $course)
                                 <li class="bg-white px-4 py-6 shadow rounded-sm">
                                     <div class="flex justify-center">
@@ -436,7 +444,20 @@
                                                                     d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z">
                                                                 </path>
                                                             </svg>
-                                                            <span>Intermediate</span>
+                                                            <span>
+                                                                @switch($course->difficulty_level)
+                                                                    @case(0)
+                                                                        Beginner
+                                                                    @break
+
+                                                                    @case(1)
+                                                                        Intermediate
+                                                                    @break
+
+                                                                    @default
+                                                                        Advanced
+                                                                @endswitch
+                                                            </span>
                                                         </div>
                                                         <div
                                                             class="inline-flex items-center gap-2 text-sm text-gray-500">
@@ -489,7 +510,9 @@
                             @endforeach
 
                         </ul>
-                        {{ $courses->links() }}
+                        <div class="mt-5">
+                            {{ $courses->links() }}
+                        </div>
                     </div>
                 </div>
             </section>

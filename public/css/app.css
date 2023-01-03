@@ -695,10 +695,6 @@ select{
   pointer-events: none;
 }
 
-.static{
-  position: static;
-}
-
 .fixed{
   position: fixed;
 }

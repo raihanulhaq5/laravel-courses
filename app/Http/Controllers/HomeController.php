@@ -12,9 +12,9 @@ use Illuminate\Support\Facades\Auth;
 class HomeController extends Controller
 {
     public function index() {
-        $series = Series::take(6)->get();
+        $series = Series::take(12)->get();
         // dd($series);
-        $featuredCourses = Course::take(6)->get();
+        $featuredCourses = Course::take(12)->get();
         return view('welcome', [
             'series' => $series,
             'courses' => $featuredCourses,

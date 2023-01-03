@@ -15,25 +15,34 @@ class CourseController extends Controller
      */
     public function index(Request $request)
     {
-        // $search = $request->search;
-        // $level = $request->level;
-        // $courses = Course::where(function ($query) use ($search) {
-        //     if(!empty($search)) {
-        //         $query->where('name', 'like', '%' . $search . '%');
-        //     }
-        // })->when($level, function ($query) use ($level) {
-        //     if($level == 'beginner') {
-        //         $field = 0;
-        //     } elseif($level == 'intermediate') {
-        //         $field = 1;
-        //     } else {
-        //         $field = 2;
-        //     }
+        $search = $request->search;
+        $levels = $request->level;
 
-        //     $query->where('difficulty_level', $field);
-        // })->paginate(12);
+        // dd($levels);
 
-        $courses = Course::with(['platform', 'topics', 'series', 'authors', 'reviews'])->paginate(4);
+        $courses = Course::where(function ($query) use ($search) {
+            if(!empty($search)) {
+                $query->where('name', 'like', '%' . $search . '%');
+            }
+        })->when($levels, function ($query) use ($levels) {
+            $fields = array();
+            // array_push($z, 'she', 'it');
+
+            foreach($levels as $level) {
+                if($level == 'beginner') {
+                    $field = 0;
+                } elseif($level == 'intermediate') {
+                    $field = 1;
+                } else {
+                    $field = 2;
+                }
+                array_push($fields, $field);
+            }
+            // $query->where('difficulty_level', $field);
+            $query->whereIn('difficulty_level', $fields);
+        })->paginate(12);
+
+        // $courses = Course::with(['platform', 'topics', 'series', 'authors', 'reviews'])->paginate(12);
 
         // return response()->json($courses);
 
